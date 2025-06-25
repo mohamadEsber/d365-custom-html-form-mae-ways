@@ -1,0 +1,305 @@
+<html><head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>CRM Inquiry Page</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+  
+
+  <meta><meta><meta><meta>
+ <link rel="stylesheet" href="style.css" />
+...
+<script src="logic.js"></script>
+  
+<meta></head>
+<body onfocusout="parent.setEmailRange();" style="overflow-wrap: break-word;">
+  <div class="container">
+    <div id="first-two-sections">
+      <div class="customer-info">
+        <h2>Customer Information</h2>
+        <form class="info-grid">
+          <div class="form-group">
+            <label>Case Code</label>
+            <input type="text" id="caseCodeInput" disabled="" placeholder="Auto-generated">
+          </div>
+          <!-- Customer Lookup Field (Contacts and Accounts) -->
+          <div class="form-group">
+            <label>Customer</label>
+            <div class="lookup-container">
+              <input type="text" id="customerLookup" placeholder="Search by name or residency #" oninput="searchCustomer(this.value)">
+              <i class="fa fa-search" onclick="searchCustomer(document.getElementById('customerLookup').value)"></i>
+              <div id="customerResults"></div>
+            </div>
+          </div>
+          <div class="form-group">
+            <label>Residency Number</label>
+            <input type="text" id="residencyNumberInput" disabled="" placeholder="Enter Residency Number">
+          </div>
+          <div class="form-group">
+            <label>Residency Type</label>
+            <select id="residencyTypeSelect">
+              <option value="" selected="" disabled="">Select an option</option>
+              <option value="1">Main Contact</option>
+              <option value="2">Spouse</option>
+              <option value="3">Son</option>
+              <option value="4">Daughter</option>
+              <option value="5">Parents</option>
+            </select>
+          </div>
+          <!-- New Origin Field -->
+          <div class="form-group">
+            <label>Origin</label>
+            <select id="originSelect">
+              <option value="" selected="" disabled="">Select an option</option>
+              <option value="100000001">Twitter</option>
+              <option value="1">Unified number</option>
+              <option value="2">Email</option>
+              <option value="3">Social networking sites (Twitter)</option>
+              <option value="7">Through an employee / official</option>
+              <option value="4">Through the platform</option>
+              <option value="100000000">Outgoing call</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label for="subjectSelect">Subject</label>
+            <select id="subjectSelect">
+              <option value="" selected="" disabled="">Select an option</option>
+              <option value="5">Inquiry</option>
+              <option value="266990000">Request</option>
+              <option value="2">Submit a Complaint</option>
+              <option value="1">Submit a Suggestion</option>
+              <option value="3">Submit a Contact Request</option>
+              <option value="4">Report a Problem</option>
+            </select>
+          </div>
+          <!-- Related KBA Lookup Field -->
+          <div class="form-group">
+            <label>Related KBA</label>
+            <div class="lookup-container">
+              <input type="text" id="kbaLookup" placeholder="Search KBA by title" oninput="searchKBA(this.value)">
+              <i class="fa fa-search"></i>
+              <div id="kbaResults"></div>
+            </div>
+            <!-- Box to display KB content -->
+            <div id="kbaContentDisplay" class="kba-content-display" style="display:none;"></div>
+          </div>
+          <div class="form-group">
+            <label>Priority</label>
+            <select id="prioritySelect">
+              <option value="" selected="" disabled="">Select an option</option>
+              <option value="1">High</option>
+              <option value="2">Normal</option>
+              <option value="3">Low</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label>Related to</label>
+            <select id="relatedToSelect"></select>
+          </div>
+          <div class="form-group">
+            <label>Description</label>
+            <textarea id="descriptionInput" rows="4" placeholder="Enter description..."></textarea>
+          </div>
+          <div class="form-group">
+            <label>Last Comment</label>
+            <input type="text" disabled="" id="LastCommentInput">
+          </div>
+          <div class="form-group">
+            <label>Dependent Identification Number</label>
+            <input type="text" id="DependentIdentificationNumberInput">
+          </div>
+          <div class="dynamic-group">
+            <!-- Dynamic Inquiry Fields -->
+            <div class="form-group hidden">
+              <label for="inquiryTypeSelect">Inquiry Type</label>
+              <select id="inquiryTypeSelect">
+                <option value="" selected="" disabled="">Select an option</option>
+                <option value="100000001">Inquiry About Services For Premium Residency Holders</option>
+                <option value="100000002">Inquiry About Special Accommodation</option>
+                <option value="100000003">Inquiry About Application Procedures</option>
+                <option value="266990000">Cancel the Request</option>
+                <option value="100000000">Other</option>
+              </select>
+            </div>
+            <div class="form-group hidden" id="issueTypeField">
+              <label for="issueTypeSelect">Issue Type</label>
+              <select id="issueTypeSelect">
+                <option value="" selected="" disabled="">Select an option</option>
+                <option value="100000000">Technical Problem with Center's Platform</option>
+                <option value="100000001">Problem Enjoying benefits as a Resident</option>
+                <option value="100000002">Other</option>
+              </select>
+            </div>
+            <div class="form-group hidden" id="issueClassification1">
+              <label for="issueClassification1Select">Issue Classification</label>
+              <select id="issueClassification1Select">
+                <option value="" selected="" disabled="">Select an option</option>
+                <option value="266990015">إضافة التابعين</option>
+                <option value="266990016">الاعفاء من نطاقات</option>
+                <option value="266990017">ترشيح 2 للحصول على منتج كفاءة استثنائية</option>
+                <option value="266990000">الإعفاء من رسوم المرافقين</option>
+                <option value="266990001">حرية الخروج من المملكة والعودة لها دون تأشيرة الخروج والعودة</option>
+                <option value="266990002">تأشيرة زيارة الأقارب</option>
+                <option value="266990003">استقدام العمالة المنزلية</option>
+                <option value="266990004">امتلاك العقارات السكنية والتجارية والصناعية</option>
+                <option value="266990005">الانتفاع بالعقارات الواقعة في مدينتي مكة المكرمة والمدينة المنورة</option>
+                <option value="266990006">امتلاك وسائل النقل الخاصة</option>
+                <option value="266990007">العمل في منشآت القطاع الخاص والانتقال بينها</option>
+                <option value="266990008">التسجيل في نظام التأمينات الاجتماعية</option>
+                <option value="266990009">استخدام الممرات المخصصة للسعوديين عند دخول المملكة عبر منافذها والخروج منها</option>
+                <option value="266990010">مزاولة الأعمال التجارية</option>
+                <option value="100000000">طلب إلغاء الإقامة المميزة</option>
+                <option value="266990011">ربط سجل الأبناء فوق سن 25</option>
+                <option value="266990013">انتقال الحقوق والمزايا من حامل الإقامة المميزة المتوفى إلى أفراد أسرته</option>
+                <option value="266990014">أخرى</option>
+              </select>
+            </div>
+            <div class="form-group hidden" id="issueClassification2">
+              <label for="issueClassification2Select">Issue Classification</label>
+              <select id="issueClassification2Select">
+                <option value="" selected="" disabled="">Select an option</option>
+                <option value="266990007">OTP</option>
+                <option value="266990008">سداد المقابل المالي للإقامة المميزة</option>
+                <option value="266990001">تعبئة نموذج الطلب</option>
+                <option value="266990002">إرفاق المستندات</option>
+                <option value="266990003">تفعيل الحساب</option>
+                <option value="266990004">سداد رسوم معالجة الطلب</option>
+                <option value="266990005">التأمين الطبي</option>
+                <option value="266990006">أخرى</option>
+              </select>
+            </div>
+            <div class="form-group hidden" id="inquiryClassification33">
+              <label for="inquiryClassification33Select">Inquiry Classification</label>
+              <select id="inquiryClassification33Select">
+                <option value="" selected="" disabled="">Select an option</option>
+                <option value="266990006">طلب معاد</option>
+                <option value="266990000">حالة الطلب التقديم على الإقامة المميزة</option>
+                <option value="266990001">حالة طلب التجديد الإقامة المميزة</option>
+                <option value="266990002">إجراءات إصدار الإقامة المميزة</option>
+                <option value="266990003">استكمال إجراءات المتقدمين من خارج المملكة</option>
+                <option value="100000000">استكمال إجراءات المتقدمين من داخل المملكة</option>
+                <option value="266990004">تأكيد دفع رسوم الإقامة المميزة</option>
+                <option value="266990005">طباعة الإقامة المميزة</option>
+              </select>
+            </div>
+            <div class="form-group hidden" id="inquiryClassification32">
+              <label for="inquiryClassification32Select">Inquiry Classification</label>
+              <select id="inquiryClassification32Select">
+                <option value="" selected="" disabled="">Select an option</option>
+                <option value="266990009">مالك عقار</option>
+                <option value="266990010">كفاءة استثنائية</option>
+                <option value="266990011">رائد أعمال</option>
+                <option value="266990012">مستثمر أعمال</option>
+                <option value="266990013">الموهبة</option>
+                <option value="266990014">الاقامة المحددة والدائمة</option>
+                <option value="266990000">مزايا الإقامة المميزة</option>
+                <option value="266990001">المستندات المطلوبة للتقديم</option>
+                <option value="266990002">تجديد الإقامة المميزة</option>
+                <option value="266990003">الملاءة المالية</option>
+                <option value="266990004">رسوم الإقامة المميزة</option>
+                <option value="266990005">رسوم معالجة الطلب</option>
+                <option value="266990006">التأمين الطبي</option>
+                <option value="100000000">مدة الإقامة</option>
+                <option value="266990008">أخرى</option>
+              </select>
+            </div>
+            <div class="form-group hidden" id="inquirySubClassification">
+              <label>Inquiry SubClassification</label>
+              <select id="inquirySubClassificationSelect">
+                <option value="" selected="" disabled="">Select an option</option>
+                <option value="benefits">مزايا الإقامة المميزة</option>
+                <option value="eligibility_documents">معايير الأهلية والمستندات المطلوبة للتقديم</option>
+              </select>
+            </div>
+            <div class="form-group hidden" id="inquiryClassification31">
+              <label for="inquiryClassification31Select">Inquiry Classification</label>
+              <select id="inquiryClassification31Select">
+                <option value="" selected="" disabled="">Select an option</option>
+                <option value="266990000">ربط التأمين برقم الإقامة المميزة</option>
+                <option value="266990001">تصديق تأشيرة زيارة</option>
+                <option value="266990002">فصل تابع فوق 25 سنة</option>
+                <option value="266990003">إضافة تابع</option>
+                <option value="266990004">إضافة مرافق (مكفول)</option>
+                <option value="266990005">إلغاء الإقامة المميزة المحددة</option>
+                <option value="266990006">تعديل بيانات</option>
+                <option value="266990007">تغيير الصورة الشخصية</option>
+                <option value="266990008">إعادة طباعة البطاقة</option>
+                <option value="266990009">أخرى</option>
+              </select>
+            </div>
+            <div class="form-group hidden" id="inquirySubClassification44">
+              <label for="inquirySubClassification44Select">Inquiry SubClassification</label>
+              <select id="inquirySubClassification44Select">
+                <option value="" selected="" disabled="">Select an option</option>
+                <option value="266990000">تعديل الاسم</option>
+                <option value="266990001">تعديل المهنة</option>
+                <option value="266990002">تعديل الجنسية</option>
+                <option value="266990003">تعديل تاريخ الميلاد</option>
+                <option value="266990004">أخرى</option>
+              </select>
+            </div>
+            <div class="form-group hidden" id="inquirySubClassification45">
+              <label for="inquirySubClassification45Select">Inquiry SubClassification</label>
+              <select id="inquirySubClassification45Select">
+                <option value="" selected="" disabled="">Select an option</option>
+                <option value="266990001">لتحديث البيانات</option>
+                <option value="266990000">بدل فاقد</option>
+              </select>
+            </div>
+            <div class="form-group hidden" id="inquirySubClassification43">
+              <label for="inquirySubClassification43Select">Inquiry SubClassification</label>
+              <select id="inquirySubClassification43Select">
+                <option value="" selected="" disabled="">Select an option</option>
+                <option value="266990000">ربط السجل بسجل منشأة</option>
+                <option value="266990001">الخروج النهائي</option>
+              </select>
+            </div>
+            <div class="form-group hidden" id="inquirySubClassification42">
+              <label for="inquirySubClassification42Select">Inquiry SubClassification</label>
+              <select id="inquirySubClassification42Select">
+                <option value="" selected="" disabled="">Select an option</option>
+                <option value="266990001">ابن فوق 25 سنة (احتياجات خاصة)</option>
+                <option value="266990002">ابنة فوق 25 سنة</option>
+              </select>
+            </div>
+            <div class="form-group hidden" id="inquirySubClassification41">
+              <label for="inquirySubClassification41Select">Inquiry SubClassification</label>
+              <select id="inquirySubClassification41Select">
+                <option value="" selected="" disabled="">Select an option</option>
+                <option value="266990002"> الأهل </option>
+                <option value="266990000"> زوج\زوجة </option>
+                <option value="266990001">ابن\ابنة</option>
+              </select>
+            </div>
+            <div class="form-group hidden" id="contactRequestType">
+              <label for="contactRequestType">Contact Request Type</label>
+              <select id="contactRequestType">
+                <option value="" selected="" disabled="">Select an option</option>
+                <option value="266990000">طلب الاتصال بمدير العلاقات</option>
+                <option value="266990001">طلب الاتصال بالمشرف</option>
+                <option value="266990002">أخرى</option>
+              </select>
+            </div>
+          </div>
+        </form>
+      </div>
+      <div class="contact-details" id="contactDetails">
+        <h2>Contact Details</h2>
+        <div class="info-grid">
+          <p><strong>First Name:</strong> <span id="contactFirstName">-</span></p>
+          <p><strong>Last Name:</strong> <span id="contactLastName">-</span></p>
+          <p><strong>Request Number:</strong> <span id="contactRequestNumber">-</span></p>
+          <p><strong>Customer Type:</strong> <span id="contactCustomerType">-</span></p>
+          <p><strong>Residency Number:</strong> <span id="contactResidencyNumber">-</span></p>
+          <p><strong>Gender:</strong> <span id="contactGender">-</span></p>
+          <p><strong>Email:</strong> <span id="contactEmail">-</span></p>
+          <p><strong>Phone:</strong> <span id="contactPhone">-</span></p>
+        </div>
+      </div>
+    </div>
+    <div class="timeline-section">
+      <h2>Timeline</h2>
+      <ul class="timeline" id="timelineList"></ul>
+    </div>
+  </div>
+  
+</body></html>
